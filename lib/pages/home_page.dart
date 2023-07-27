@@ -92,7 +92,28 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, index){
                     return Padding(
                       padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Image.asset('assets/image/image_1.png', fit: BoxFit.fill),
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Image.asset('assets/image/image_5.png', fit: BoxFit.fill, height: 240),
+                          const Positioned(
+                            left: 8,
+                            top: 80,
+                            right: 8,
+                            bottom: 8,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('by Ryan Browne', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: Colors.white)),
+                                Text('Crypto investors should be prepared to lose all their money, BOE governor says', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white)),
+                                SizedBox(height: 39),
+                                Text('“I’m going to say this very bluntly again,” he added. “Buy them only if you’re prepared to lose all your money.”', style: TextStyle(fontSize: 10, fontWeight: FontWeight.w400, color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ]
+                      ),
                     );
                   }
                 ),
@@ -105,7 +126,6 @@ class HomePage extends StatelessWidget {
                 child: CategoriesWidget(),
               ),
             ),
-            const SizedBox(height: 5),
             const Expanded(
               child: CategoriesScrollWidget(),
             ),
@@ -114,7 +134,7 @@ class HomePage extends StatelessWidget {
         const Positioned(
           left: 0,
           right: 0,
-          bottom: 50,
+          bottom: 25,
           child: NavBarWidget(),
         ),
        ],
