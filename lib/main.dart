@@ -4,6 +4,7 @@ import 'package:news_app/pages/news_details_page.dart';
 import 'package:news_app/pages/notification.dart';
 import 'package:news_app/pages/search_page.dart';
 import 'package:news_app/providers/categories_scroll_provider.dart';
+import 'package:news_app/providers/notification_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CategoriesNewsProvider())
+        ChangeNotifierProvider(create: (context) => CategoriesNewsProvider()),
+        ChangeNotifierProvider(create: (context) => NotificationProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

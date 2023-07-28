@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/models/notification_model.dart';
+import 'package:news_app/providers/notification_provider.dart';
+import 'package:provider/provider.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});
@@ -20,37 +23,43 @@ class NotificationPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10,
-              // scrollDirection: Axis.vertical,
-              itemBuilder: (context, index){
-                return Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset('assets/image/image_3.png'),
-                      const SizedBox(height: 16),
-                      const Text('Monday, 10 May 2021', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: Color(0xFF2E0505))),
-                      const SizedBox(height: 10),
-                      const Text('WHO classifies triple-mutant Covid variant from India as global health risk', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
-                      const SizedBox(height: 10),
-                      const SizedBox(
-                        height: 84,
-                        width: 343,
-                        child: Text(
-                          'A World Health Organization official said Monday it is reclassifying the highly contagious triple-mutant Covid variant spreading in India as a “variant of concern,” indicating that it’s become a...Read More',
-                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.black),
-                        ),
+          Consumer<NotificationProvider>(
+            builder: (context, provider, child){
+              provider.getNotification();
+              List<NotificationModel> notificarion = provider.notificarion;
+
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index){
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.network(notificarion[index].urlToImageN),
+                          const SizedBox(height: 16),
+                          Text(notificarion[index].publishedAtN, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w300, color: Color(0xFF2E0505))),
+                          const SizedBox(height: 10),
+                          Text(notificarion[index].descriptionN, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black)),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            height: 84,
+                            width: 343,
+                            child: Text(
+                              notificarion[index].contentN,
+                              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w400, color: Colors.black),
+                            ),
+                          ),
+                          Text('Published by ${notificarion[index].authorN}.', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF2E0505))),
+                          const SizedBox(height: 24),
+                        ],
                       ),
-                      const Text('Published by Berkeley Lovelace Jr.', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF2E0505))),
-                      const SizedBox(height: 24),
-                    ],
-                  ),
-                );
-              }
-            ),
+                    );
+                  }
+                ),
+              );
+            }
           ),
         ],
       ),
